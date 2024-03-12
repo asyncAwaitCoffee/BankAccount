@@ -1,0 +1,22 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <div id="emblem"></div>
+        <nav>
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="Account" asp-action="Cards">Account</a>
+        </nav>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    @await RenderSectionAsync("Script", false)
+</body>
+</html>

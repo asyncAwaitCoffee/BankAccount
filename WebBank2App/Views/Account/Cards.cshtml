@@ -1,0 +1,98 @@
+﻿@using WebBank2App.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewBag.Title = "Account";
+    IEnumerable<CardModel> cards = ViewBag.Cards;
+}
+<div>@ViewBag.Title</div>
+<select id="cards-drop-list">
+    @foreach (var card in cards)
+    {
+        <option value=@card.Id>@card.Code</option>
+    }
+</select>
+<div id="card">
+    <div id="bank">Bank Name</div>
+    <div id="code">Code</div>
+    <div id="valid">12/24</div>
+    <div id="holder">Card Holder</div>
+    <div id="type">Type</div>
+</div>
+<div id="balance">0</div>
+<button>Transfer</button>
+<form id="form-transfer-own">
+    <select name="accountIdFrom">
+        @foreach (var card in cards)
+        {
+            <option value=@card.Id>@card.Code</option>
+        }
+    </select>
+    <select name ="accountIdTo">
+        @foreach (var card in cards)
+        {
+            <option value=@card.Id>@card.Code</option>
+        }
+    </select>
+    <input type="text" name="amount" />
+    <input type="submit" value="Confirm" />
+</form>
+<form id="form-transfer-by-code">
+    <select name="accountIdFrom">
+        @foreach (var card in cards)
+        {
+            <option value=@card.Id>@card.Code</option>
+        }
+    </select>
+    <input type="text" name="cardCodeTo" />
+    <input type="text" name="amount" />
+    <input type="submit" value="Confirm" />
+</form>
+@section Script {
+    <script>
+        fetchCardData(-1);
+        
+        document
+            .getElementById("cards-drop-list")
+            .addEventListener("change", (ev) => { fetchCardData(ev.target.value) })
+
+        document
+            .getElementById("form-transfer-own")
+            .addEventListener("submit", ev => {
+                ev.preventDefault();
+                const formData = new FormData(ev.target);
+                fetch("/api/account/transfer", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data));
+            })
+
+        document
+            .getElementById("form-transfer-by-code")
+            .addEventListener("submit", ev => {
+                ev.preventDefault();
+                const formData = new FormData(ev.target);
+                console.log(ev.target);
+                fetch("/api/account/transfer", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data));
+            })
+
+        async function fetchCardData(cardId) {
+            await fetch(`/api/account/card/${cardId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    code.textContent = data.card.code;
+                    holder.textContent = data.client.name
+                    type.textContent = data.card.type
+                    valid.textContent = data.card.validThru
+                    balance.textContent = data.account.balance
+                });
+        }
+    </script>
+}
