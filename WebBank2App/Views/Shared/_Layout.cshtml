@@ -1,5 +1,7 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@{
+    var a = User.Identity?.IsAuthenticated;
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +17,14 @@
             <ul id="nav-main">
                 <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                 <li><a asp-controller="Account" asp-action="Cards">Account</a></li>
-                <li><a asp-controller="Auth" asp-action="Index">Log In</a></li>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <li><a asp-controller="Auth" asp-action="Logout">Log Out</a></li>
+                }
+                else
+                {
+                    <li><a asp-controller="Auth" asp-action="Index">Log In</a></li>                    
+                }
             </ul>
         </nav>
     </header>

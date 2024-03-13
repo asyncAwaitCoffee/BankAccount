@@ -31,5 +31,11 @@ namespace WebBank2App.Controllers
 
             return Json(new { result = ReturnUrl ?? "/"});
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return LocalRedirect("/");
+        }
     }
 }
