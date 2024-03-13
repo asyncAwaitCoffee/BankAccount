@@ -1,5 +1,6 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 <aside>
-	<a asp-controller="Account" asp-action="Cards">Cards</a>
-	<a asp-controller="Account" asp-action="Transfers">Transfers</a>
+	<a asp-controller="Account" class=@(ViewBag.Title == "Cards" ? "marked" : "") asp-action="Cards">Cards</a>
+	<a asp-controller="Account" class=@(ViewBag.Title == "Transfers" ? "marked" : "") asp-action="Transfers">Transfers</a>
 </aside>

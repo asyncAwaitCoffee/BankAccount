@@ -5,7 +5,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/main.css" rel="stylesheet" />
+    <link href="~/main.css" rel="stylesheet" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", false)
 </head>
 <body>
     <header>
@@ -14,6 +15,7 @@
             <ul id="nav-main">
                 <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                 <li><a asp-controller="Account" asp-action="Cards">Account</a></li>
+                <li><a asp-controller="Auth" asp-action="Index">Log In</a></li>
             </ul>
         </nav>
     </header>

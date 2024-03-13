@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using WebBank2App.Repositories;
 
 namespace WebBank2App
@@ -8,10 +9,14 @@ namespace WebBank2App
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddControllersWithViews();
+			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+				.AddCookie(options => options.LoginPath = "/Auth/Index");
+			builder.Services.AddAuthorization();
 			builder.Services.AddSingleton<IClientsRepository, MemoryClientsRepository>();
 			builder.Services.AddSingleton<ICardsRepository, MemoryCardsRepository>();
 			builder.Services.AddSingleton<IAccountsRepository, MemoryAccountsRepository>();
 			builder.Services.AddSingleton<ITransfersRepository, MemoryTransfersRepository>();
+			builder.Services.AddSingleton<IUsersRepository, MemoryUsersRepository>();
 
 			var app = builder.Build();
 			app.UseStaticFiles();

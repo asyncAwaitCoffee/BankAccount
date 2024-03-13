@@ -1,0 +1,51 @@
+﻿#card {
+    background-color: #436a70;
+    width: 320px;
+    height: 215px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas:
+        '. . . . bank'
+        '. . . . .'
+        '. code code code .'
+        '. . . valid .'
+        '. . . . .'
+        '. holder holder . .'
+        '. . . . .'
+        'type . . . balance';
+    padding: 20px;
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+#card > * {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#bank {
+    grid-area: bank;
+}
+
+#code {
+    grid-area: code;
+}
+
+#valid {
+    grid-area: valid;
+}
+
+#holder {
+    grid-area: holder;
+}
+
+#type {
+    grid-area: type;
+}
+
+#balance {
+    grid-area: balance;
+}

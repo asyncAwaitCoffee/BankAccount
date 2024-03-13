@@ -1,17 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebBank2App.DTO;
 using WebBank2App.Models;
 using WebBank2App.Repositories;
 
 namespace WebBank2App.Controllers
 {
+    [Authorize]
 	public class AccountController : Controller
 	{
 		public IActionResult Cards([FromServices] IAccountsRepository accountsRepository,
                              [FromServices] IClientsRepository clientsRepository,
+                             [FromServices] IUsersRepository usersRepository,
                              [FromServices] ICardsRepository cardsRepository)
 		{
 			int userId = 1;
+            int? clientId = usersRepository.GetClientId(userId);
+            if (clientId == null)
+            {
+                return BadRequest();
+            }
 			ViewBag.Client = clientsRepository.FindClientById(userId);
 			var cards = cardsRepository.FindCardsByUserId(userId);
 			ViewBag.Cards = cards;
@@ -58,7 +66,7 @@ namespace WebBank2App.Controllers
         public IActionResult Transfer([FromServices] IAccountsRepository accountsRepository,
                                       [FromServices] ICardsRepository cardsRepository,
                                       [FromServices] ITransfersRepository transfersRepository,
-                                      [FromForm] Transfer transfer)
+                                      [FromForm] TransferDTO transfer)
         {
             (int accountIdFrom, decimal amount, int accountIdTo, string cardCodeTo) = transfer;
             if (accountIdTo < 0)

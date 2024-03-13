@@ -1,0 +1,28 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	ViewBag.Title = "Auth";
+}
+<div>@ViewBag.Title</div>
+<form id="form-login">
+	<input type="text" name="userName" />
+	<input type="password" name="password" />
+	<input type="submit" value="Log in" />
+</form>
+
+@section Script {
+	<script>
+		document.getElementById("form-login")
+			.addEventListener("submit", async (ev) => {
+				ev.preventDefault();
+
+				const formData = new FormData(ev.target);
+
+				await fetch(`/Auth/Login${window.location.search}`, {
+					method: "POST",
+					body: formData
+				})
+				.then(response => response.json())
+				.then(data => window.location.replace(data.result));
+			})
+	</script>
+}

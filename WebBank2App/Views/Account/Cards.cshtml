@@ -4,28 +4,30 @@
     ViewBag.Title = "Cards";
     IEnumerable<CardModel> cards = ViewBag.Cards;
 }
-<main>
+<section id="container">
     @await Html.PartialAsync("AccountMenu")
-    <div>@ViewBag.Title</div>
-    <select id="cards-drop-list">
-        @foreach (var card in cards)
-        {
-            <option value=@card.Id>@card.Code</option>
-        }
-    </select>
-    <div id="card">
-        <div id="bank">Bank Name</div>
-        <div id="code">Code</div>
-        <div id="valid">12/24</div>
-        <div id="holder">Card Holder</div>
-        <div id="type">Type</div>
-    </div>
-    <div id="balance">0</div>
-    <button>Pin-Code</button>
-    <button>CCV</button>
-    <button>Block</button>
-    <div id="transfersHistory"></div>
-</main>
+    <main id="card-content">
+        <div>@ViewBag.Title</div>
+        <select id="cards-drop-list">
+            @foreach (var card in cards)
+            {
+                <option value=@card.Id>@card.Code</option>
+            }
+        </select>
+        <div id="card">
+            <div id="bank">Bank Name</div>
+            <div id="code">Code</div>
+            <div id="valid">12/24</div>
+            <div id="holder">Card Holder</div>
+            <div id="type">Type</div>
+            <div id="balance">0</div>
+        </div>
+        <button>Pin-Code</button>
+        <button>CCV</button>
+        <button>Block</button>
+        <div id="transfersHistory"></div>
+    </main>
+</section>
 @section Script {
     <script>
         fetchCardData(-1);
@@ -38,7 +40,6 @@
             await fetch(`/api/account/card/${cardId}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     code.textContent = data.card.code;
                     holder.textContent = data.client.name;
                     type.textContent = data.card.type;
@@ -65,4 +66,9 @@
                 });
         }
     </script>
+}
+
+@section Styles {
+    <link href="~/accounts/index.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/accounts/cards/index.css" rel="stylesheet" asp-append-version="true" />
 }

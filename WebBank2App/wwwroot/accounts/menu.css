@@ -1,0 +1,17 @@
+﻿aside {
+    grid-area: menu;
+    display: flex;
+    flex-direction: column;
+}
+
+aside a {
+    padding: 10px;
+}
+
+aside a:hover {
+    background-color: #a7c4c7;
+}
+
+.marked {
+    background-color: #d3b9ac;
+}
