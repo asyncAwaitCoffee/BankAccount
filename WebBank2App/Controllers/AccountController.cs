@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using WebBank2App.DTO;
 using WebBank2App.Models;
 using WebBank2App.Repositories;
@@ -14,7 +15,7 @@ namespace WebBank2App.Controllers
                              [FromServices] IUsersRepository usersRepository,
                              [FromServices] ICardsRepository cardsRepository)
 		{
-			int userId = 1;
+			int userId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
             int? clientId = usersRepository.GetClientId(userId);
             if (clientId == null)
             {
@@ -33,7 +34,7 @@ namespace WebBank2App.Controllers
                              [FromServices] ITransfersRepository transfersRepository,
                              int cardId)
         {
-            int userId = 1;
+            int userId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
             CardModel card;
             if (cardId < 0)
             {
@@ -54,7 +55,7 @@ namespace WebBank2App.Controllers
                              [FromServices] IClientsRepository clientsRepository,
                              [FromServices] ICardsRepository cardsRepository)
         {
-            int userId = 1;
+            int userId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
             ViewBag.Client = clientsRepository.FindClientById(userId);
             var cards = cardsRepository.FindCardsByUserId(userId);
             ViewBag.Cards = cards;
