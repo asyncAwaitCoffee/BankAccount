@@ -11,6 +11,7 @@ namespace WebBank2App
 			builder.Services.AddSingleton<IClientsRepository, MemoryClientsRepository>();
 			builder.Services.AddSingleton<ICardsRepository, MemoryCardsRepository>();
 			builder.Services.AddSingleton<IAccountsRepository, MemoryAccountsRepository>();
+			builder.Services.AddSingleton<ITransfersRepository, MemoryTransfersRepository>();
 
 			var app = builder.Build();
 			app.UseStaticFiles();

@@ -1,0 +1,67 @@
+﻿@using WebBank2App.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewBag.Title = "Tranfers";
+    IEnumerable<CardModel> cards = ViewBag.Cards;
+    await Html.RenderPartialAsync("AccountMenu");
+}
+
+<div>@ViewBag.Title</div>
+<form id="form-transfer-own">
+    <select name="accountIdFrom">
+        @foreach (var card in cards)
+        {
+            <option value=@card.Id>@card.Code</option>
+        }
+    </select>
+    <select name="accountIdTo">
+        @foreach (var card in cards)
+        {
+            <option value=@card.Id>@card.Code</option>
+        }
+    </select>
+    <input type="text" name="amount" />
+    <input type="submit" value="Confirm" />
+</form>
+<form id="form-transfer-by-code">
+    <select name="accountIdFrom">
+        @foreach (var card in cards)
+        {
+            <option value=@card.Id>@card.Code</option>
+        }
+    </select>
+    <input type="text" name="cardCodeTo" />
+    <input type="text" name="amount" />
+    <input type="submit" value="Confirm" />
+</form>
+
+@section Script {
+    <script>
+        document
+            .getElementById("form-transfer-own")
+            .addEventListener("submit", ev => {
+                ev.preventDefault();
+                const formData = new FormData(ev.target);
+                fetch("/api/account/transfer", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data));
+            })
+
+        document
+            .getElementById("form-transfer-by-code")
+            .addEventListener("submit", ev => {
+                ev.preventDefault();
+                const formData = new FormData(ev.target);
+                console.log(ev.target);
+                fetch("/api/account/transfer", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data));
+            })
+    </script>
+}

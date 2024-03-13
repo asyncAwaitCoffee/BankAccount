@@ -4,7 +4,7 @@ namespace WebBank2App.Repositories
 {
     public class MemoryAccountsRepository : IAccountsRepository
     {
-        private List<AccountModel> accounts = [
+        private List<AccountModel> _accounts = [
             new("AB-1234567890", 500),
             new("CD-1234567890", 20),
             new("EF-1234567890", 1000),
@@ -14,7 +14,7 @@ namespace WebBank2App.Repositories
 
         public AccountModel? FindAccountById(int accountId)
         {
-            return accounts.Find(a => a.Id == accountId);
+            return _accounts.Find(a => a.Id == accountId);
         }
 
         public bool TransferBetweenAccountsByAccountId(int accountIdFrom, int accountIdTo, decimal amount)

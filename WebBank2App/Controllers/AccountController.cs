@@ -22,6 +22,7 @@ namespace WebBank2App.Controllers
         public IActionResult Card([FromServices] IAccountsRepository accountsRepository,
                              [FromServices] IClientsRepository clientsRepository,
                              [FromServices] ICardsRepository cardsRepository,
+                             [FromServices] ITransfersRepository transfersRepository,
                              int cardId)
         {
             int userId = 1;
@@ -34,9 +35,23 @@ namespace WebBank2App.Controllers
                 card = cardsRepository.FindCardById(cardId);
             }
             var account = accountsRepository.FindAccountById(card.AccountId);
+            var transfersHistoryFrom = transfersRepository.FindTransfersByAccountIdFrom(account.Id);
+            var transfersHistoryTo = transfersRepository.FindTransfersByAccountIdTo(account.Id);
             var client = clientsRepository.FindClientById(card.UserId);
 
-            return Json(new { card, account, client });
+            return Json(new { card, account, client, transfersHistoryFrom, transfersHistoryTo });
+        }
+
+        public IActionResult Transfers([FromServices] IAccountsRepository accountsRepository,
+                             [FromServices] IClientsRepository clientsRepository,
+                             [FromServices] ICardsRepository cardsRepository)
+        {
+            int userId = 1;
+            ViewBag.Client = clientsRepository.FindClientById(userId);
+            var cards = cardsRepository.FindCardsByUserId(userId);
+            ViewBag.Cards = cards;
+            ViewBag.Accounts = cards.Select(c => accountsRepository.FindAccountById(c.AccountId));
+            return View();
         }
 
         [HttpPost]
