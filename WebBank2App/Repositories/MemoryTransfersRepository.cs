@@ -22,9 +22,13 @@ namespace WebBank2App.Repositories
         {
             return _transfers.FindAll(t => t.AccountIdTo == accountIdTo);
         }
-        public TransferModel? FindTratnsferById(int transferId)
+        public TransferModel? FindTransferById(int transferId)
         {
             return _transfers.FirstOrDefault(t => t.Id == transferId);
+        }
+        public void AddTransfer(TransferModel transfer)
+        {
+            _transfers.Add(transfer);
         }
 
     }

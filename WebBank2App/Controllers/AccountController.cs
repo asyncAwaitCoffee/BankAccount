@@ -57,6 +57,7 @@ namespace WebBank2App.Controllers
         [HttpPost]
         public IActionResult Transfer([FromServices] IAccountsRepository accountsRepository,
                                       [FromServices] ICardsRepository cardsRepository,
+                                      [FromServices] ITransfersRepository transfersRepository,
                                       [FromForm] Transfer transfer)
         {
             (int accountIdFrom, decimal amount, int accountIdTo, string cardCodeTo) = transfer;
@@ -71,6 +72,7 @@ namespace WebBank2App.Controllers
             }
 
             accountsRepository.TransferBetweenAccountsByAccountId(accountIdFrom, accountIdTo, amount);
+            transfersRepository.AddTransfer(new TransferModel(accountIdFrom, accountIdTo, amount, DateTime.Now));
 
             return Json(new { result = accountsRepository.FindAccountById(accountIdTo) });
         }

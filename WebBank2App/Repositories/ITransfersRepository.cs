@@ -6,6 +6,7 @@ namespace WebBank2App.Repositories
     {
         IEnumerable<TransferModel> FindTransfersByAccountIdFrom(int accountIdFrom);
         IEnumerable<TransferModel> FindTransfersByAccountIdTo(int accountIdTo);
-        TransferModel? FindTratnsferById(int transferId);
+        TransferModel? FindTransferById(int transferId);
+        public void AddTransfer(TransferModel transfer);
     }
 }
