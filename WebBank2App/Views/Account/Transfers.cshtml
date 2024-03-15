@@ -43,7 +43,7 @@
                 }
             </select>
             <label>To card:</label>
-            <input type="text" name="cardCodeTo" />
+            <input type="text" name="cardCodeTo" maxlength="19" />
             <label>Amount:</label>
             <input type="text" name="amount" />
             <div class="result">A</div>
@@ -92,6 +92,7 @@
             .addEventListener("submit", ev => {
                 ev.preventDefault();
                 const formData = new FormData(ev.target);
+                console.log(formData.set("cardCodeTo", formData.get("cardCodeTo").replace(/\s/g, "")));
                 fetch("/api/account/transfer", {
                     method: "POST",
                     body: formData
@@ -108,6 +109,15 @@
                         }
                     });
             })
+
+            document
+                .querySelector("input[name='cardCodeTo']")
+                .addEventListener("input", ev => {
+                    if (ev.inputType == "deleteContentBackward") {
+                        return;
+                    }
+                    ev.target.value = ev.target.value.replace(/(\d{4})(\d{1})+$/, "$1 $2");
+                })
     </script>
 }
 
