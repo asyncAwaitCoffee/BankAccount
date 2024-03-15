@@ -7,31 +7,43 @@
 <section id="container">
     @await Html.PartialAsync("AccountMenu")
     <main id="transfer-content">
-        <div>@ViewBag.Title</div>
-        <form id="form-transfer-own">
+        <div class="transfer-item">
+            <h1>@ViewBag.Title</h1>
+            <select id="transfer-type">
+                <option value="own">Between my accounts</option>
+                <option value="code">By card code</option>
+            </select>
+        </div>
+        <form class="form-transfer transfer-item" id="form-transfer-own">
+            <label>From card:</label>
             <select name="accountIdFrom">
                 @foreach (var card in cards)
                 {
                     <option value=@card.Id>@card.Code</option>
                 }
             </select>
+            <label>To card:</label>
             <select name="accountIdTo">
                 @foreach (var card in cards)
                 {
                     <option value=@card.Id>@card.Code</option>
                 }
             </select>
+            <label>Amount:</label>
             <input type="text" name="amount" />
             <input type="submit" value="Confirm" />
         </form>
-        <form id="form-transfer-by-code">
+        <form class="form-transfer transfer-item display-none" id="form-transfer-code">
+            <label>From card:</label>
             <select name="accountIdFrom">
                 @foreach (var card in cards)
                 {
                     <option value=@card.Id>@card.Code</option>
                 }
             </select>
+            <label>To card:</label>
             <input type="text" name="cardCodeTo" />
+            <label>Amount:</label>
             <input type="text" name="amount" />
             <input type="submit" value="Confirm" />
         </form>
@@ -40,6 +52,17 @@
 
 @section Script {
     <script>
+        document
+            .getElementById("transfer-type")
+            .addEventListener("change", (ev) => {
+                for (const form of document.getElementsByClassName("form-transfer")) {
+                    form.classList.add("display-none");
+                }
+                
+                const theForm = document.getElementById(`form-transfer-${ev.target.value}`);
+                theForm.classList.remove("display-none");
+            })
+
         document
             .getElementById("form-transfer-own")
             .addEventListener("submit", ev => {
@@ -54,7 +77,7 @@
             })
 
         document
-            .getElementById("form-transfer-by-code")
+            .getElementById("form-transfer-code")
             .addEventListener("submit", ev => {
                 ev.preventDefault();
                 const formData = new FormData(ev.target);

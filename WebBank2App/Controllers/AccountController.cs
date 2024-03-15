@@ -69,6 +69,7 @@ namespace WebBank2App.Controllers
                                       [FromServices] ITransfersRepository transfersRepository,
                                       [FromForm] TransferDTO transfer)
         {
+            //TODO - check accountIdFrom owner, amount > 0
             (int accountIdFrom, decimal amount, int accountIdTo, string cardCodeTo) = transfer;
             if (accountIdTo < 0)
             {

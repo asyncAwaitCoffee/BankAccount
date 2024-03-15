@@ -7,3 +7,12 @@
     grid-template-areas:
         'menu content'
 }
+
+.form-transfer {
+    display: flex;
+    flex-direction: column;
+}
+
+.transfer-item {
+    width: 60%;
+}

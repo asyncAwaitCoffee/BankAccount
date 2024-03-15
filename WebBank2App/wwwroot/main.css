@@ -23,10 +23,14 @@ ul {
 body {
     display: grid;
     grid-template-columns: 100vw;
-    grid-template-rows: 5vh calc(90vh - var(--gap) * 2) 5vh;
+    grid-template-rows: 10vh calc(85vh - var(--gap) * 2) 5vh;
     gap: var(--gap);
 }
 
 footer {
     display: flex;
+}
+
+.display-none {
+    display: none !important;
 }
