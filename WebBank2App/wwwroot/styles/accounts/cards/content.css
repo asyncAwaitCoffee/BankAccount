@@ -1,0 +1,7 @@
+﻿#card-content {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--gap) * 2);
+}

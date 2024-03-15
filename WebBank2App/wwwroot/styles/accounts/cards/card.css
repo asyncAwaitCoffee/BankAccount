@@ -1,4 +1,17 @@
-﻿#card {
+﻿.card-item {    
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: var(--gap);
+    padding: var(--padding);
+}
+
+input, select, button {
+    padding: var(--padding);
+    font-size: var(--font-size);
+}
+
+#card {
     background-color: #436a70;
     width: 320px;
     height: 215px;
@@ -16,8 +29,16 @@
         '. . . . .'
         'type . . . balance';
     padding: 20px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     white-space: nowrap;
+    animation-name: card-enter;
+    animation-duration: 0.3s;
+    align-self: center;
+}
+
+@keyframes card-enter {
+    from {opacity: 0}
+    to {opacity: 1}
 }
 
 #card > * {
@@ -48,4 +69,5 @@
 
 #balance {
     grid-area: balance;
+    justify-self: center;
 }

@@ -52,8 +52,8 @@ nav {
     left: 50%;
     transform: translateX(-50%);
     display: block;
-    width: 0%;
-    height: 2px;
+    width: 0;
+    height: 4px;
     background-color: black;
     transition: all 0.3s;
 }

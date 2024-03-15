@@ -7,68 +7,39 @@
 <section id="container">
     @await Html.PartialAsync("AccountMenu")
     <main id="card-content">
-        <h1>@ViewBag.Title</h1>
-        <select id="cards-drop-list">
-            @foreach (var card in cards)
-            {
-                <option value=@card.Id>@card.Code</option>
-            }
-        </select>
-        <div id="card">
-            <div id="bank">Bank Name</div>
-            <div id="code">Code</div>
-            <div id="valid">12/24</div>
-            <div id="holder">Card Holder</div>
-            <div id="type">Type</div>
-            <div id="balance">0</div>
+        <div class="card-item">
+            <h1>@ViewBag.Title</h1>
+            <select id="cards-drop-list">
+                @foreach (var card in cards)
+                {
+                    <option value=@card.Id>@card.FormattedCode</option>
+                }
+            </select>
+            <div id="card">
+                <div id="bank">Bank Name</div>
+                <div id="code">Code</div>
+                <div id="valid">12/24</div>
+                <div id="holder">Card Holder</div>
+                <div id="type">Type</div>
+                <div id="balance">0</div>
+            </div>
+            <div>
+                <button>Pin-Code</button>
+                <button>CCV</button>
+                <button>Block</button>
+            </div>
         </div>
-        <button>Pin-Code</button>
-        <button>CCV</button>
-        <button>Block</button>
-        <div id="transfersHistory"></div>
+        <div class="card-item">
+            <div id="transfersHistory"></div>
+        </div>
     </main>
 </section>
 @section Script {
-    <script>
-        fetchCardData(-1);
-        
-        document
-            .getElementById("cards-drop-list")
-            .addEventListener("change", (ev) => { fetchCardData(ev.target.value) })
-
-        async function fetchCardData(cardId) {
-            await fetch(`/api/account/card/${cardId}`)
-                .then(response => response.json())
-                .then(data => {
-                    code.textContent = data.card.code;
-                    holder.textContent = data.client.name;
-                    type.textContent = data.card.type;
-                    valid.textContent = data.card.validThru;
-                    balance.textContent = data.account.balance;
-
-                    while (transfersHistory.firstChild) {
-                        transfersHistory.removeChild(transfersHistory.firstChild);
-                    }
-
-                    for (const history of data.transfersHistoryFrom) {
-                        const div = document.createElement("div");
-                        div.style.color = "red";
-                        div.textContent = `${history.amount} - ${history.dateTime}`;
-                        transfersHistory.appendChild(div);
-                    }
-
-                    for (const history of data.transfersHistoryTo) {
-                        const div = document.createElement("div");
-                        div.style.color = "green";
-                        div.textContent = `${history.amount} - ${history.dateTime}`;
-                        transfersHistory.appendChild(div);
-                    }
-                });
-        }
-    </script>
+    <script src="~/scripts/accounts.js"></script>
+    <script src="~/scripts/cards/index.js"></script>
 }
 
 @section Styles {
-    <link href="~/accounts/index.css" rel="stylesheet" asp-append-version="true" />
-    <link href="~/accounts/cards/index.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/styles/accounts/index.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/styles/accounts/cards/index.css" rel="stylesheet" asp-append-version="true" />
 }

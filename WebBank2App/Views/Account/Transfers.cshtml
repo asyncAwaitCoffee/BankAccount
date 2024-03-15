@@ -1,4 +1,5 @@
-﻿@using WebBank2App.Models
+﻿@using System.Text.RegularExpressions
+@using WebBank2App.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewBag.Title = "Transfers";
@@ -19,18 +20,18 @@
             <select name="accountIdFrom">
                 @foreach (var card in cards)
                 {
-                    <option value=@card.Id>@card.Code</option>
+                    <option value=@card.Id>@card.FormattedCode</option>
                 }
             </select>
             <label>To card:</label>
             <select name="accountIdTo">
                 @foreach (var card in cards)
                 {
-                    <option value=@card.Id>@card.Code</option>
+                    <option value=@card.Id>@card.FormattedCode</option>
                 }
             </select>
             <label>Amount:</label>
-            <input type="text" name="amount" />
+            <input type="text" name="amount" pattern="[0-9]+.*[0-9]*" placeholder="0,00" />
             <div class="result">A</div>
             <input type="submit" value="Confirm" />
         </form>
@@ -39,13 +40,13 @@
             <select name="accountIdFrom">
                 @foreach (var card in cards)
                 {
-                    <option value=@card.Id>@card.Code</option>
+                    <option value=@card.Id>@card.FormattedCode</option>
                 }
             </select>
             <label>To card:</label>
             <input type="text" name="cardCodeTo" maxlength="19" />
             <label>Amount:</label>
-            <input type="text" name="amount" />
+            <input type="text" name="amount" pattern="[0-9]+.*[0-9]*" placeholder="0,00" />
             <div class="result">A</div>
             <input type="submit" value="Confirm" />
         </form>
@@ -53,75 +54,11 @@
 </section>
 
 @section Script {
-    <script>
-        document
-            .getElementById("transfer-type")
-            .addEventListener("change", (ev) => {
-                for (const form of document.getElementsByClassName("form-transfer")) {
-                    form.classList.add("display-none");
-                }
-                
-                const theForm = document.getElementById(`form-transfer-${ev.target.value}`);
-                theForm.classList.remove("display-none");
-            })
-
-        document
-            .getElementById("form-transfer-own")
-            .addEventListener("submit", ev => {
-                ev.preventDefault();
-                const formData = new FormData(ev.target);
-                fetch("/api/account/transfer", {
-                    method: "POST",
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data.ok) {
-                            console.log("Ok.");
-                        } else {
-                            document
-                                .getElementsByClassName("result")[0]
-                                .textContent = data.message;
-                        }
-                    });
-            })
-
-        document
-            .getElementById("form-transfer-code")
-            .addEventListener("submit", ev => {
-                ev.preventDefault();
-                const formData = new FormData(ev.target);
-                console.log(formData.set("cardCodeTo", formData.get("cardCodeTo").replace(/\s/g, "")));
-                fetch("/api/account/transfer", {
-                    method: "POST",
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data.ok) {
-                            console.log("Ok.");
-                        } else {
-                            document
-                                .getElementsByClassName("result")[1]
-                                .textContent = data.message;
-                        }
-                    });
-            })
-
-            document
-                .querySelector("input[name='cardCodeTo']")
-                .addEventListener("input", ev => {
-                    if (ev.inputType == "deleteContentBackward") {
-                        return;
-                    }
-                    ev.target.value = ev.target.value.replace(/(\d{4})(\d{1})+$/, "$1 $2");
-                })
-    </script>
+    <script src="~/scripts/accounts.js"></script>
+    <script src="~/scripts/transfers/index.js"></script>
 }
 
 @section Styles {
-    <link href="~/accounts/index.css" rel="stylesheet" asp-append-version="true" />
-    <link href="~/accounts/transfers/index.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/styles/accounts/index.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/styles/accounts/transfers/index.css" rel="stylesheet" asp-append-version="true" />
 }

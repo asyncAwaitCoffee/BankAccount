@@ -70,6 +70,7 @@ namespace WebBank2App.Controllers
                                       [FromForm] TransferDTO transfer)
         {
             (int accountIdFrom, decimal amount, int accountIdTo, string cardCodeTo) = transfer;
+            Console.WriteLine(transfer);
             if (amount <= 0)
             {
                 return Json(new { ok = false, message = "Amount must be greater than 0!" });

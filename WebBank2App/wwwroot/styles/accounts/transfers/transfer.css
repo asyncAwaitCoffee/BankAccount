@@ -7,6 +7,6 @@
 }
 
 input, select {
-    padding: 10px;
+    padding: var(--padding);
     font-size: var(--font-size);
 }
