@@ -5,14 +5,14 @@
     gap: var(--gap);
     grid-template-columns: 10vw calc(90vw - var(--gap));
     grid-template-areas:
-        'menu content'
-}
+        'menu content';
 
-.form-transfer {
-    display: flex;
-    flex-direction: column;
-}
-
-.transfer-item {
-    width: 60%;
+    @media (max-width: 600px)
+    {
+        grid-template-rows: 10vw calc(90vw - var(--gap));
+        grid-template-columns: 100vw;
+        grid-template-areas:
+            'menu'
+            'content'
+    }
 }

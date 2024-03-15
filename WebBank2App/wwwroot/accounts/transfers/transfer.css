@@ -1,0 +1,11 @@
+﻿.transfer-item {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: var(--gap);
+}
+
+input, select {
+    padding: 10px;
+    font-size: var(--font-size);
+}
