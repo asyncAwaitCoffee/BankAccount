@@ -31,6 +31,7 @@
             </select>
             <label>Amount:</label>
             <input type="text" name="amount" />
+            <div class="result">A</div>
             <input type="submit" value="Confirm" />
         </form>
         <form class="form-transfer transfer-item display-none" id="form-transfer-code" autocomplete="off">
@@ -45,6 +46,7 @@
             <input type="text" name="cardCodeTo" />
             <label>Amount:</label>
             <input type="text" name="amount" />
+            <div class="result">A</div>
             <input type="submit" value="Confirm" />
         </form>
     </main>
@@ -73,7 +75,16 @@
                     body: formData
                 })
                     .then(response => response.json())
-                    .then(data => console.log(data));
+                    .then(data => {
+                        console.log(data);
+                        if (data.ok) {
+                            console.log("Ok.");
+                        } else {
+                            document
+                                .getElementsByClassName("result")[0]
+                                .textContent = data.message;
+                        }
+                    });
             })
 
         document
@@ -86,7 +97,16 @@
                     body: formData
                 })
                     .then(response => response.json())
-                    .then(data => console.log(data));
+                    .then(data => {
+                        console.log(data);
+                        if (data.ok) {
+                            console.log("Ok.");
+                        } else {
+                            document
+                                .getElementsByClassName("result")[1]
+                                .textContent = data.message;
+                        }
+                    });
             })
     </script>
 }

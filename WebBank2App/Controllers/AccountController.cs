@@ -71,6 +71,10 @@ namespace WebBank2App.Controllers
         {
             //TODO - check accountIdFrom owner, amount > 0
             (int accountIdFrom, decimal amount, int accountIdTo, string cardCodeTo) = transfer;
+            if (amount <= 0)
+            {
+                return Json(new { ok = false, message = "Amount must be greater than 0!" });
+            }
             if (accountIdTo < 0)
             {
                 var card = cardsRepository.FindCardByCode(cardCodeTo);
@@ -78,13 +82,17 @@ namespace WebBank2App.Controllers
                 {
                     accountIdTo = card.AccountId;
                 }
-                else return BadRequest("No card was found!");
+                else return Json(new { ok = false, message = "No card was found!" });
+            }
+            if (accountIdFrom == accountIdTo)
+            {
+                return Json(new { ok = false, message = "Target and source card must be different!" });
             }
 
             accountsRepository.TransferBetweenAccountsByAccountId(accountIdFrom, accountIdTo, amount);
             transfersRepository.AddTransfer(new TransferModel(accountIdFrom, accountIdTo, amount, DateTime.Now));
 
-            return Json(new { result = accountsRepository.FindAccountById(accountIdTo) });
+            return Json(new { ok = true });
         }
     }
 }
