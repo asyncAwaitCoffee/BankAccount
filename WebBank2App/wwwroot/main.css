@@ -3,6 +3,8 @@
 :root {
     --gap: 10px;
     --font-size: clamp(0.8rem, 2vmin, 2rem);
+    --font-size-big: clamp(1.2rem, 3vmin, 3rem);
+    --padding: 10px;
 }
 
 * {
@@ -25,6 +27,7 @@ body {
     grid-template-columns: 100vw;
     grid-template-rows: 10vh calc(85vh - var(--gap) * 2) 5vh;
     gap: var(--gap);
+    font-size: var(--font-size);
 }
 
 footer {

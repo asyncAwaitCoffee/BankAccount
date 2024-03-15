@@ -14,7 +14,7 @@
                 <option value="code">By card code</option>
             </select>
         </div>
-        <form class="form-transfer transfer-item" id="form-transfer-own">
+        <form class="form-transfer transfer-item" id="form-transfer-own" autocomplete="off">
             <label>From card:</label>
             <select name="accountIdFrom">
                 @foreach (var card in cards)
@@ -33,7 +33,7 @@
             <input type="text" name="amount" />
             <input type="submit" value="Confirm" />
         </form>
-        <form class="form-transfer transfer-item display-none" id="form-transfer-code">
+        <form class="form-transfer transfer-item display-none" id="form-transfer-code" autocomplete="off">
             <label>From card:</label>
             <select name="accountIdFrom">
                 @foreach (var card in cards)

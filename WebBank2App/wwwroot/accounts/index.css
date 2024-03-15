@@ -3,7 +3,7 @@
 #container {
     display: grid;
     gap: var(--gap);
-    grid-template-columns: 10vw calc(90vw - var(--gap));
+    grid-template-columns: 15vw calc(85vw - var(--gap));
     grid-template-areas:
         'menu content';
 

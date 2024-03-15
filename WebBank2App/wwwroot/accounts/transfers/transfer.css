@@ -3,6 +3,7 @@
     flex-direction: column;
     width: 60%;
     gap: var(--gap);
+    padding: var(--padding);
 }
 
 input, select {

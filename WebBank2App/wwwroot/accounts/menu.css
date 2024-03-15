@@ -2,14 +2,17 @@
     grid-area: menu;
     display: flex;
     flex-direction: column;
-    
+    align-items: flex-end;
+    padding: var(--padding);
+
     @media (max-width: 600px) {
         flex-direction: row;
+        align-items: center;
     }
 }
 
 aside a {
-    padding: 10px;
+    padding: var(--padding);
 }
 
 aside a:hover {
