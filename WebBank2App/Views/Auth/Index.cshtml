@@ -8,6 +8,20 @@
 		<form id="form-login" class="auth-item" autocomplete="off">
 			<input type="text" name="userName" placeholder="Login" />
 			<input type="password" name="password" placeholder="Password" />
+			<div id="auth-items">
+				<div>
+					<input type="radio" name="auth" value="registration" id="registration" checked />
+					<label for="registration">New account</label>
+				</div>
+				<div>
+					<input type="radio" name="auth" value="login" id="login" />
+					<label for="login">Existing account</label>
+				</div>
+			</div>
+			<div id="policy-item">
+				<input type="checkbox" name="policy" />
+				<label>Accept <a href="#" style="color: blue">Policy</a></label>
+			</div>
 			<input type="submit" value="Log in" />
 		</form>
 	</main>

@@ -13,6 +13,8 @@
 
 aside a {
     padding: var(--padding);
+    text-decoration: none;
+    color: inherit;
 }
 
 aside a:hover {

@@ -43,6 +43,8 @@ nav {
 
 #nav-main a {
     position: relative;
+    text-decoration: none;
+    color: inherit;
 }
 
 #nav-main a::after {
