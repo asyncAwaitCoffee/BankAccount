@@ -9,6 +9,10 @@
     flex-direction: column;
     width: 40%;
     gap: var(--gap);
+
+    @media (max-width: 800px) {
+        width: 60%;
+    }
 }
 
 input, select {
@@ -24,10 +28,6 @@ input[type="submit"] {
     display: flex;
     flex-direction: column;
     gap: var(--gap);
-
-    @media (max-width: 800px) {
-        width: 80%;
-    }
 }
 
 #auth-items {
@@ -36,6 +36,6 @@ input[type="submit"] {
     align-items: flex-start;
 }
 
-#policy-item {
+#policy {
     align-self: flex-end;
 }

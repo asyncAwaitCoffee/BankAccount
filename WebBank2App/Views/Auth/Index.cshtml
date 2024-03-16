@@ -5,9 +5,11 @@
 <section id="container">
 	<main id="auth-content">
 		<h2>@ViewBag.Title</h2>
+		<div id="message" class="message-error"></div>
 		<form id="form-login" class="auth-item" autocomplete="off">
 			<input type="text" name="userName" placeholder="Login" />
 			<input type="password" name="password" placeholder="Password" />
+			<input type="text" name="clientName" placeholder="Name" />
 			<div id="auth-items">
 				<div>
 					<input type="radio" name="auth" value="registration" id="registration" checked />
@@ -18,11 +20,11 @@
 					<label for="login">Existing account</label>
 				</div>
 			</div>
-			<div id="policy-item">
+			<div id="policy">
 				<input type="checkbox" name="policy" />
-				<label>Accept <a href="#" style="color: blue">Policy</a></label>
+				<label>Accept <a href="#">Policy</a></label>
 			</div>
-			<input type="submit" value="Log in" />
+			<input type="submit" value="Confirm" />
 		</form>
 	</main>
 </section>
@@ -31,17 +33,56 @@
 	<script>
 		document.getElementById("form-login")
 			.addEventListener("submit", async (ev) => {
+				message.textContent = "";
 				ev.preventDefault();
 
 				const formData = new FormData(ev.target);
 
-				await fetch(`/Auth/Login${window.location.search}`, {
-					method: "POST",
-					body: formData
-				})
-				.then(response => response.json())
-				.then(data => window.location.replace(data.result));
+				const auth = formData.get("auth");
+
+				if (!formData.get("policy") && auth == "registration") {
+					message.textContent = "Accept Policy to proceed.";
+					return;
+				}
+
+				if (auth == "login") {
+					await fetch(`/Auth/Login${window.location.search}`, {
+						method: "POST",
+						body: formData
+					})
+						.then(response => response.json())
+						.then(data => window.location.replace(data.result))
+						.catch(err => console.error(err));
+				} else if (auth == "registration") {
+					await fetch(`/Auth/Register${window.location.search}`, {
+						method: "POST",
+						body: formData
+					})
+						.then(response => response.json())
+						.then(data => window.location.replace(data.result))
+						.catch(err => console.error(err));
+				}
 			})
+			for (const r of document.querySelectorAll('input[type="radio"]')) {
+				r.addEventListener("change", ev => {
+					if (ev.target.checked) {
+						switch (ev.target.value) {
+							case "login":
+								document
+									.querySelector('input[name="clientName"]')
+									.classList.add("display-none");
+								policy.classList.add("display-none");
+								break;
+							case "registration":
+								document
+									.querySelector('input[name="clientName"]')
+									.classList.remove("display-none");
+								policy.classList.remove("display-none");
+								break;
+						}
+					}
+				})
+			}
 	</script>
 }
 

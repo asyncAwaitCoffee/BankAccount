@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebBank2App.DTO;
+using WebBank2App.Models;
 using WebBank2App.Repositories;
 
 namespace WebBank2App.Controllers
@@ -35,7 +36,18 @@ namespace WebBank2App.Controllers
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return LocalRedirect("/");
+            return RedirectToAction("Index");
         }
+
+        public IActionResult Register([FromServices] IUsersRepository usersRepository,
+									  [FromServices] IClientsRepository clientsRepository,
+									  [FromForm] RegisterDTO register)
+        {
+            (string userName, string password, string clientName) = register;
+            ClientModel client = clientsRepository.AddNewClient(clientName);
+            usersRepository.TryRegister(userName, password, client.Id);
+
+			return Json(new { result = "/" });
+		}
     }
 }

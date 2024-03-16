@@ -23,7 +23,11 @@ namespace WebBank2App.Controllers
             }
 			ViewBag.Client = clientsRepository.FindClientById(userId);
 			var cards = cardsRepository.FindCardsByUserId(userId);
-			ViewBag.Cards = cards;
+            if (!cards.Any())
+            {
+                return View("Products");
+            }
+            ViewBag.Cards = cards;
             ViewBag.Accounts = cards.Select(c => accountsRepository.FindAccountById(c.AccountId));
 
             return View();
@@ -35,7 +39,7 @@ namespace WebBank2App.Controllers
                              int cardId)
         {
             int userId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
-            CardModel card;
+            CardModel? card;
             if (cardId < 0)
             {
                 card = cardsRepository.FindCardsByUserId(userId).FirstOrDefault();
@@ -43,12 +47,17 @@ namespace WebBank2App.Controllers
             {
                 card = cardsRepository.FindCardById(cardId);
             }
+            if (card == null)
+            {
+                return Json(new {ok = false});
+            }
+            // TODO - handle card without corresponding account?
             var account = accountsRepository.FindAccountById(card.AccountId);
             var transfersHistoryFrom = transfersRepository.FindTransfersByAccountIdFrom(account.Id);
             var transfersHistoryTo = transfersRepository.FindTransfersByAccountIdTo(account.Id);
             var client = clientsRepository.FindClientById(card.UserId);
 
-            return Json(new { card, account, client, transfersHistoryFrom, transfersHistoryTo });
+            return Json(new { ok = true, card, account, client, transfersHistoryFrom, transfersHistoryTo });
         }
 
         public IActionResult Transfers([FromServices] IAccountsRepository accountsRepository,

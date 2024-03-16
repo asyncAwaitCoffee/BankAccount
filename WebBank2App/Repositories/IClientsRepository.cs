@@ -5,5 +5,7 @@ namespace WebBank2App.Repositories
     public interface IClientsRepository
     {
         ClientModel? FindClientById(int clientId);
-    }
+        public ClientModel AddNewClient(string name);
+
+	}
 }

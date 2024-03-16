@@ -18,5 +18,11 @@ namespace WebBank2App.Repositories
         {
             return _users.Find(u => u.Id == userId)?.ClientId;
         }
+        public int TryRegister(string userName, string password, int clientId)
+        {
+            UserModel newUser = new(userName, password, clientId);
+			_users.Add(newUser);
+            return newUser.Id;
+		}
     }
 }

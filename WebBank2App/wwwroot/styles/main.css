@@ -35,3 +35,12 @@ footer {
 .display-none {
     display: none !important;
 }
+
+.visibility-hidden {
+    visibility: hidden;
+}
+
+.message-error {
+    color: red;
+    height: var(--font-size);
+}

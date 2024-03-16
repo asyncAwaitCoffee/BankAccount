@@ -4,7 +4,7 @@ namespace WebBank2App.Repositories
 {
     public class MemoryClientsRepository : IClientsRepository
     {
-        private List<ClientModel> _users = [
+        private List<ClientModel> _clients = [
                 new("Tom"),
                 new("Kate"),
                 new("Sarah"),
@@ -12,7 +12,14 @@ namespace WebBank2App.Repositories
 
         public ClientModel? FindClientById(int clientId)
         {
-            return _users.Find(c => c.Id == clientId);
+            return _clients.Find(c => c.Id == clientId);
+        }
+
+        public ClientModel AddNewClient(string name)
+        {
+            ClientModel newClient = new(name);
+            _clients.Add(newClient);
+            return newClient;
         }
     }
 }
