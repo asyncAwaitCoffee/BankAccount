@@ -3,10 +3,17 @@
     flex-direction: column;
     width: 60%;
     gap: var(--gap);
-    padding: var(--padding);
+
+    @media (max-width: 800px) {
+        width: 80%;
+    }
 }
 
 input, select {
     padding: var(--padding);
     font-size: var(--font-size);
+}
+
+input[type="submit"] {
+    border-radius: var(--button-radius);
 }

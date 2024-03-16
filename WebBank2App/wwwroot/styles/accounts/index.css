@@ -7,7 +7,7 @@
     grid-template-areas:
         'menu content';
 
-    @media (max-width: 600px)
+    @media (max-width: 800px)
     {
         grid-template-rows: 10vw calc(90vw - var(--gap));
         grid-template-columns: 100vw;

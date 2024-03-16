@@ -30,6 +30,6 @@ async function fetchCardData(cardId) {
                 div.style.color = "green";
                 div.textContent = `${history.amount} - ${history.dateTime}`;
                 transfersHistory.appendChild(div);
-            }
+            }            
         });
 }

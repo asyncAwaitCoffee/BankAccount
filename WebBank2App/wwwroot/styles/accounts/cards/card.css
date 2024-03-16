@@ -1,9 +1,9 @@
-﻿.card-item {    
+﻿.card-item {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 40%;
     gap: var(--gap);
-    padding: var(--padding);
+    min-width: var(--card-width);
 }
 
 input, select, button {
@@ -13,9 +13,9 @@ input, select, button {
 
 #card {
     background-color: #436a70;
-    width: 320px;
+    width: var(--card-width);
     height: 215px;
-    border-radius: 10px;
+    border-radius: var(--button-radius);
     display: grid;
     grid-template-rows: repeat(8, 1fr);
     grid-template-columns: repeat(5, 1fr);
@@ -28,16 +28,17 @@ input, select, button {
         '. holder holder . .'
         '. . . . .'
         'type . . . balance';
-    padding: 20px;
     font-size: 1.4rem;
+    padding: var(--padding-double);
     white-space: nowrap;
-    animation-name: card-enter;
-    animation-duration: 0.3s;
     align-self: center;
+    opacity: 0;
+    animation-name: card-enter;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
 }
 
 @keyframes card-enter {
-    from {opacity: 0}
     to {opacity: 1}
 }
 
@@ -70,4 +71,18 @@ input, select, button {
 #balance {
     grid-area: balance;
     justify-self: center;
+}
+
+#card-controls {
+    width: 320px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-self: center;
+    gap: var(--gap);
+}
+
+#card-controls button {
+    width: 25%;
+    border-radius: var(--button-radius);
 }

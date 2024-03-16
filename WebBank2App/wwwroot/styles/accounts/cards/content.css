@@ -1,4 +1,5 @@
 ﻿#card-content {
+    --card-width: 320px;
     grid-area: content;
     display: flex;
     flex-direction: column;

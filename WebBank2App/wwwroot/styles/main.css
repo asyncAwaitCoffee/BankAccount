@@ -5,6 +5,9 @@
     --font-size: clamp(0.8rem, 2vmin, 2rem);
     --font-size-big: clamp(1.2rem, 3vmin, 3rem);
     --padding: 10px;
+    --padding-double: calc(var(--padding) * 2);
+    --button-radius: 10px;
+    --media-max-width: 800px;
 }
 
 * {
