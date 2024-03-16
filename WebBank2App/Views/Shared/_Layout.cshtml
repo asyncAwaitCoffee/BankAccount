@@ -17,6 +17,7 @@
             <ul id="nav-main">
                 <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                 <li><a asp-controller="Account" asp-action="Cards">Account</a></li>
+                <li><a asp-controller="Product" asp-action="Index">Products</a></li>
                 @if (User.Identity?.IsAuthenticated == true)
                 {
                     <li><a asp-controller="Auth" asp-action="Logout">Log Out</a></li>
