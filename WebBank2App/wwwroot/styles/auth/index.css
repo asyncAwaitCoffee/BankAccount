@@ -1,0 +1,31 @@
+﻿#container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+/* TODO - repeating css */
+#auth-content {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    gap: var(--gap);
+}
+
+input, select {
+    padding: var(--padding);
+    font-size: var(--font-size);
+}
+
+input[type="submit"] {
+    border-radius: var(--button-radius);
+}
+
+.auth-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+
+    @media (max-width: 800px) {
+        width: 80%;
+    }
+}

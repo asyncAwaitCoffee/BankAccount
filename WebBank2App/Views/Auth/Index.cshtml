@@ -2,12 +2,16 @@
 @{
 	ViewBag.Title = "Auth";
 }
-<div>@ViewBag.Title</div>
-<form id="form-login">
-	<input type="text" name="userName" />
-	<input type="password" name="password" />
-	<input type="submit" value="Log in" />
-</form>
+<section id="container">
+	<main id="auth-content">
+		<h2>@ViewBag.Title</h2>
+		<form id="form-login" class="auth-item" autocomplete="off">
+			<input type="text" name="userName" placeholder="Login" />
+			<input type="password" name="password" placeholder="Password" />
+			<input type="submit" value="Log in" />
+		</form>
+	</main>
+</section>
 
 @section Script {
 	<script>
@@ -25,4 +29,8 @@
 				.then(data => window.location.replace(data.result));
 			})
 	</script>
+}
+
+@section Styles {
+	<link href="~/styles/auth/index.css" rel="stylesheet" asp-append-version="true" />
 }
