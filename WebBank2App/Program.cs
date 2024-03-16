@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebBank2App.Repositories;
+using WebBank2App.Services;
 
 namespace WebBank2App
 {
@@ -17,6 +18,7 @@ namespace WebBank2App
 			builder.Services.AddSingleton<IAccountsRepository, MemoryAccountsRepository>();
 			builder.Services.AddSingleton<ITransfersRepository, MemoryTransfersRepository>();
 			builder.Services.AddSingleton<IUsersRepository, MemoryUsersRepository>();
+			builder.Services.AddScoped<TextFormatter>();
 
 			var app = builder.Build();
 			app.UseStaticFiles();

@@ -1,5 +1,8 @@
 ﻿@using WebBank2App.Models
+@using WebBank2App.Services
+@inject TextFormatter textFormatter;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     ViewBag.Title = "Cards";
     IEnumerable<CardModel> cards = ViewBag.Cards;
@@ -12,7 +15,7 @@
             <select id="cards-drop-list">
                 @foreach (var card in cards)
                 {
-                    <option value=@card.Id>@card.FormattedCode</option>
+                    <option value=@card.Id>@textFormatter.FormatCardNumber(card.Code)</option>
                 }
             </select>
             <div id="card">
