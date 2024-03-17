@@ -1,9 +1,13 @@
 ﻿.card-item {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 60%;
+    max-width: 500px;
     gap: var(--gap);
-    min-width: var(--card-width);
+
+    @media (max-width: 800px) {
+        width: 80%;
+    }
 }
 
 input, select, button {
@@ -13,8 +17,8 @@ input, select, button {
 
 #card {
     background-color: #436a70;
-    width: var(--card-width);
-    height: 215px;
+    width: 100%;
+    aspect-ratio: 1.5;
     border-radius: var(--button-radius);
     display: grid;
     grid-template-rows: repeat(8, 1fr);
@@ -28,7 +32,6 @@ input, select, button {
         '. holder holder . .'
         '. . . . .'
         'type . . . balance';
-    font-size: 1.4rem;
     padding: var(--padding-double);
     white-space: nowrap;
     align-self: center;
@@ -36,6 +39,7 @@ input, select, button {
     animation-name: card-enter;
     animation-duration: 1s;
     animation-fill-mode: forwards;
+    container-type: size;
 }
 
 @keyframes card-enter {
@@ -46,6 +50,7 @@ input, select, button {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    font-size: clamp(15px, 6cqmax, 30px);
 }
 
 #bank {
