@@ -1,0 +1,7 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<aside>
+	<a asp-controller="Product" class=@(ViewBag.Title == "Credits" ? "marked" : "") asp-action="Credits">Credits</a>
+	<a asp-controller="Product" class=@(ViewBag.Title == "Deposits" ? "marked" : "") asp-action="Deposits">Deposits</a>
+	<a asp-controller="Product" class=@(ViewBag.Title == "Cards" ? "marked" : "") asp-action="Cards">Cards</a>
+</aside>
