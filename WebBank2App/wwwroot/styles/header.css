@@ -51,13 +51,13 @@ nav {
 #nav-main a::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: -5px;
     left: 50%;
     transform: translateX(-50%);
     display: block;
     width: 0;
     height: 4px;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.5);
     transition: all 0.3s;
 }
 

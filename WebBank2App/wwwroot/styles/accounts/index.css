@@ -1,15 +1,1 @@
-﻿#container {
-    display: grid;
-    gap: var(--gap-large);
-    grid-template-columns: 20vw calc(80vw - var(--gap-large));
-    grid-template-areas:
-        'menu content';
-
-    @media (max-width: 800px) {
-        grid-template-rows: 10vw calc(90vw - var(--gap));
-        grid-template-columns: 100vw;
-        grid-template-areas:
-        'menu'
-        'content'
-    }
-}
+﻿

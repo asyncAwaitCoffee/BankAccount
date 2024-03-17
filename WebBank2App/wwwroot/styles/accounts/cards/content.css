@@ -5,4 +5,8 @@
     flex-direction: column;
     align-items: flex-start;
     gap: calc(var(--gap) * 2);
+
+    @media (max-width: 800px) {
+        align-items: center;
+    }
 }

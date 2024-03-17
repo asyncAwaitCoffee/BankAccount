@@ -11,7 +11,7 @@ async function fetchCardData(cardId) {
             code.textContent = formatCard(data.card.code, false);
             holder.textContent = data.client.name;
             type.textContent = data.card.type;
-            valid.textContent = data.card.validThru;
+            valid.textContent = formatValidThru(data.card.date);
             balance.textContent = data.account.balance;
 
             while (transfersHistory.firstChild) {
