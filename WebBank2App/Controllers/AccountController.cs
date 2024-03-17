@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using WebBank2App.DTO;
+using WebBank2App.Filters;
 using WebBank2App.Models;
 using WebBank2App.Repositories;
 
@@ -10,12 +10,13 @@ namespace WebBank2App.Controllers
     [Authorize]
 	public class AccountController : Controller
 	{
+        [UserId]
 		public IActionResult Cards([FromServices] IAccountsRepository accountsRepository,
                              [FromServices] IClientsRepository clientsRepository,
                              [FromServices] IUsersRepository usersRepository,
-                             [FromServices] ICardsRepository cardsRepository)
+                             [FromServices] ICardsRepository cardsRepository,
+                             int userId)
 		{
-			int userId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
             int? clientId = usersRepository.GetClientId(userId);
             if (clientId == null)
             {
@@ -32,13 +33,14 @@ namespace WebBank2App.Controllers
 
             return View();
 		}
-        public IActionResult Card([FromServices] IAccountsRepository accountsRepository,
+		[UserId]
+		public IActionResult Card([FromServices] IAccountsRepository accountsRepository,
                              [FromServices] IClientsRepository clientsRepository,
                              [FromServices] ICardsRepository cardsRepository,
                              [FromServices] ITransfersRepository transfersRepository,
-                             int cardId)
+							 int userId,
+							 int cardId)
         {
-            int userId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
             CardModel? card;
             if (cardId < 0)
             {
@@ -59,12 +61,12 @@ namespace WebBank2App.Controllers
 
             return Json(new { ok = true, card, account, client, transfersHistoryFrom, transfersHistoryTo });
         }
-
-        public IActionResult Transfers([FromServices] IAccountsRepository accountsRepository,
+		[UserId]
+		public IActionResult Transfers([FromServices] IAccountsRepository accountsRepository,
                              [FromServices] IClientsRepository clientsRepository,
-                             [FromServices] ICardsRepository cardsRepository)
+                             [FromServices] ICardsRepository cardsRepository,
+							 int userId)
         {
-            int userId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
             ViewBag.Client = clientsRepository.FindClientById(userId);
             var cards = cardsRepository.FindCardsByUserId(userId);
             ViewBag.Cards = cards;
@@ -79,7 +81,7 @@ namespace WebBank2App.Controllers
                                       [FromForm] TransferDTO transfer)
         {
             (int accountIdFrom, decimal amount, int accountIdTo, string cardCodeTo) = transfer;
-            Console.WriteLine(transfer);
+            
             if (amount <= 0)
             {
                 return Json(new { ok = false, message = "Amount must be greater than 0!" });
