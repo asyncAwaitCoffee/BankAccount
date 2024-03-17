@@ -1,6 +1,4 @@
-﻿@import url(menu.css);
-
-#container {
+﻿#container {
     display: grid;
     gap: var(--gap-large);
     grid-template-columns: 20vw calc(80vw - var(--gap-large));

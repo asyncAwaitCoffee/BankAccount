@@ -1,7 +1,11 @@
 ﻿@import url(header.css);
+@import url(menu.css);
+@import url(container.css);
 
 :root {
     --gap: 10px;
+    --gap-big: 40px;
+    --gap-large: 10vw;
     --font-size: clamp(0.8rem, 2vmin, 2rem);
     --font-size-big: clamp(1.2rem, 3vmin, 3rem);
     --padding: 10px;

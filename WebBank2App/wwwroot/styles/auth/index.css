@@ -1,9 +1,4 @@
-﻿#container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-/* TODO - repeating css */
+﻿/* TODO - repeating css */
 #auth-content {
     display: flex;
     flex-direction: column;

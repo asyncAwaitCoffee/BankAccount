@@ -3,6 +3,6 @@
     grid-area: content;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: calc(var(--gap) * 2);
 }
