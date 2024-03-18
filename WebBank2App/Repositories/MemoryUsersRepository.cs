@@ -22,9 +22,14 @@ namespace WebBank2App.Repositories
         public int TryRegister(string userName, string password, int clientId)
         {
             UserModel newUser = new(userName, password, clientId);
-            if (!newUser.IsValid())
+            // TODO - validation handle
+            List<ValidationResult> errors = [];
+            if (!Validator.TryValidateObject(newUser, new(newUser), errors, true))
             {
-                return -1;
+                foreach (var item in errors)
+                {
+                    Console.WriteLine(item);
+                }
             }
 
 			_users.Add(newUser);
