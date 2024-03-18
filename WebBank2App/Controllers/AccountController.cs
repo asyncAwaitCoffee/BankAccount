@@ -26,7 +26,7 @@ namespace WebBank2App.Controllers
 			var cards = cardsRepository.FindCardsByUserId(userId);
             if (!cards.Any())
             {
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("Cards", "Product");
             }
             ViewBag.Cards = cards;
             ViewBag.Accounts = cards.Select(c => accountsRepository.FindAccountById(c.AccountId));
