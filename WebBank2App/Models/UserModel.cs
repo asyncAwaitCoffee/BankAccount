@@ -18,8 +18,7 @@ namespace WebBank2App.Models
             Password = password;
             ClientId = clientId;
         }
-        private static int _idCounter = 0;
-        public int Id { get; init; } = ++_idCounter;
+        public int Id { get; set; }
 
 
 	}

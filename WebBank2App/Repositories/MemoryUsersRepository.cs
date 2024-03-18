@@ -5,10 +5,12 @@ namespace WebBank2App.Repositories
 {
     public class MemoryUsersRepository : IUsersRepository
     {
-        private List<UserModel> _users = [
-            new("qwe", "123", 1),
-            new("asd", "123", 2),
-            new("zxc", "123", 3),
+		private static int _idCounter = 0;
+
+		private List<UserModel> _users = [
+            new("qwe", "123", 1) { Id = ++_idCounter},
+            new("asd", "123", 2) { Id = ++_idCounter},
+            new("zxc", "123", 3) { Id = ++_idCounter},
             ];
 
         public int? TryLogin(string userName, string password)
@@ -31,6 +33,7 @@ namespace WebBank2App.Repositories
                     Console.WriteLine(item);
                 }
             }
+			newUser.Id = ++_idCounter;
 
 			_users.Add(newUser);
             return newUser.Id;
