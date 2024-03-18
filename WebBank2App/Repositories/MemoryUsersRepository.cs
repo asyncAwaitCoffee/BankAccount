@@ -1,4 +1,5 @@
-﻿using WebBank2App.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using WebBank2App.Models;
 
 namespace WebBank2App.Repositories
 {
@@ -21,6 +22,11 @@ namespace WebBank2App.Repositories
         public int TryRegister(string userName, string password, int clientId)
         {
             UserModel newUser = new(userName, password, clientId);
+            if (!newUser.IsValid())
+            {
+                return -1;
+            }
+
 			_users.Add(newUser);
             return newUser.Id;
 		}

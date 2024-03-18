@@ -46,7 +46,7 @@ namespace WebBank2App.Controllers
             (string userName, string password, string clientName) = register;
             ClientModel client = clientsRepository.AddNewClient(clientName);
             usersRepository.TryRegister(userName, password, client.Id);
-
+            // TODO - handle results
 			return Json(new { result = "/" });
 		}
     }
